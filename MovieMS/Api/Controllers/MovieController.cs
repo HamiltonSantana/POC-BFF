@@ -21,10 +21,27 @@ public class MovieController : ControllerBase
     {
         return _movieServices.GetMovie(id);
     }
-    [HttpPost]
-    public async Task<int> AddMovieAsync(Movie movie)
-    {
-        return await _movieServices.Add(new Movie { Description =  movie.Description, Name = movie.Name});
 
+    [HttpPost]
+    public IActionResult AddMovieAsync(Movie movie)
+    {
+        _movieServices.Add(new Movie { Description = movie.Description, Name = movie.Name, CategorieID = movie.CategorieID });
+
+        return Ok(200);
+    }
+
+    [HttpPost("/updateMovie")]
+    public IActionResult UpdateMovie(Movie movie)
+    {
+        _movieServices.Update(movie);
+
+        return Ok(200);
+    }
+
+    [HttpDelete]
+    public IActionResult DeleteMovie(int id)
+    {
+        _movieServices.Delete(id);
+        return Ok(200);
     }
 }

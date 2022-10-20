@@ -17,6 +17,7 @@ namespace Infraestructure.DataAccess
     public class DataContext : DbContext
     {
         public virtual DbSet<Movie> Movie {get; set;}
+        public virtual DbSet<Categorie> Categorie {get; set;}
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             IConfigurationRoot confiuration = new ConfigurationBuilder()

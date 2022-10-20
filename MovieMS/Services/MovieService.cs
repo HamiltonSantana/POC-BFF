@@ -23,9 +23,9 @@ namespace Services
                 if (_datacontext.Movie.Any(e => e.Id == movie.Id))
                     throw new InvalidOperationException("Movie already exist");
 
-                await _datacontext.Movie.AddAsync(movie);
-
-                return await _datacontext.SaveChangesAsync();
+                var result = _datacontext.Movie.Add(movie);
+                _datacontext.SaveChanges();
+                return result.Entity.Id;
             }
         }
 
@@ -35,6 +35,7 @@ namespace Services
             {
                 var movie = _datacontext.Movie.Find(id);
                 _datacontext.Remove(movie);
+                _datacontext.SaveChanges();
                 return Task.CompletedTask;
             }
         }
@@ -56,6 +57,8 @@ namespace Services
 
                 var currentMovie = _datacontext.Movie.Find(movie.Id);
                 currentMovie.Name = movie.Name;
+                currentMovie.Description = movie.Description;
+                currentMovie.CategorieID = movie.CategorieID;
                 _datacontext.SaveChanges();
                 return Task.CompletedTask;
             }

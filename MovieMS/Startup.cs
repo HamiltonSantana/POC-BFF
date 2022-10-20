@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Service.Interfaces;
 using Services;
+using Services.Interfaces;
 
 namespace MovieMS
 {
@@ -26,6 +27,7 @@ namespace MovieMS
             services.AddControllers();
             services.AddDbContext<DataContext>();
             services.AddScoped<IMovieService, MovieService>();
+            services.AddScoped<ICategorieService, CategorieService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MovieMS", Version = "v1" });
